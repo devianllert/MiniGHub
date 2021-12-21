@@ -23,6 +23,9 @@
       "@/modules/*": [
         "src/modules/*"
       ],
+      "@/generated/*": [
+        "src/generated/*"
+      ],
       "@/pages/*": [
         "src/pages/*"
       ]

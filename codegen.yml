@@ -1,0 +1,14 @@
+overwrite: true
+schema:
+  - "https://api.github.com/graphql":
+      headers:
+        Authorization: "bearer ${NEXT_PUBLIC_GRAPHQL_API_KEY}"
+documents: "src/**/gql/*.ts"
+generates:
+  src/generated/types.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
