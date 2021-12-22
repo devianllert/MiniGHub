@@ -22,8 +22,8 @@ export interface GraphQLRequestContext<V = Variables> {
   variables?: V;
 }
 
-export const graphqlRequest = async <T = any, V = Variables>(url: string, query: string | string[], variables?: V): Promise<T> => {
-  const response = await api.post<T>(url, {
+export const graphqlRequest = async <T = any, V = Variables>(url: string, query: string | string[], variables?: V): Promise<GraphQLResponse<T>> => {
+  const response = await api.post<GraphQLResponse<T>>(url, {
     query,
     variables,
   },
