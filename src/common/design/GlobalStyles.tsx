@@ -31,7 +31,7 @@ export const GlobalStyles = (): JSX.Element => {
 
         ::selection {
           background-color: ${violetA.violetA5};
-          color: ${violet.violet5};
+          color: ${violet.violet11};
         }
 
         a {
