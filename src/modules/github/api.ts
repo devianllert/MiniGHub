@@ -16,18 +16,38 @@ import { GetUserRepositoryListQuery } from '@/modules/github/gql/GetUserReposito
 import { GetUserByLoginQuery } from '@/modules/github/gql/GetUserByLoginQuery';
 import { CreateIssueMutation } from '@/modules/github/gql/CreateIssueMutation';
 
-export const getUserRepositoryByName = (username: string, repositoryName: string) => {
-  return graphqlRequest<UserRepositoryData, GetUserRepositoryQueryVariables>('https://api.github.com/graphql', GetUserRepositoryQuery, {
-    username,
-    repositoryName,
-  });
+export interface CursorPagination {
+  first?: number;
+  last?: number;
+  after?: string | null;
+  before?: string | null;
+}
+
+export interface GetUserRepositoryByNameOptions {
+  username: string;
+  repositoryName: string;
+}
+
+export const getUserRepositoryByName = (options: GetUserRepositoryByNameOptions, pagination?: CursorPagination) => {
+  return graphqlRequest<UserRepositoryData, GetUserRepositoryQueryVariables>(
+    'https://api.github.com/graphql',
+    GetUserRepositoryQuery,
+    {
+      ...options,
+      ...pagination,
+    },
+  );
 };
 
-export const getUserRepositories = (username: string, pageCursor?: string | null) => {
-  return graphqlRequest<RepositoryListData, GetUserRepositoryListQueryVariables>('https://api.github.com/graphql', GetUserRepositoryListQuery, {
-    username,
-    after: pageCursor,
-  });
+export const getUserRepositories = (username: string, pagination: CursorPagination) => {
+  return graphqlRequest<RepositoryListData, GetUserRepositoryListQueryVariables>(
+    'https://api.github.com/graphql',
+    GetUserRepositoryListQuery,
+    {
+      username,
+      ...pagination,
+    },
+  );
 };
 
 export const getUsers = (username: string) => {
@@ -37,7 +57,11 @@ export const getUsers = (username: string) => {
 };
 
 export const createIssue = (input: CreateIssueInput) => {
-  return graphqlRequest<IssueData, CreateIssueMutationVariables>('https://api.github.com/graphql', CreateIssueMutation, {
-    input,
-  });
+  return graphqlRequest<IssueData, CreateIssueMutationVariables>(
+    'https://api.github.com/graphql',
+    CreateIssueMutation,
+    {
+      input,
+    },
+  );
 };

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/react';
+import { gray } from '@radix-ui/colors';
 
 interface SkeletonRootProps {
   animation?: 'pulse' | 'wave' | false;
@@ -39,7 +40,7 @@ export const SkeletonRoot = styled.span<SkeletonRootProps>`
 
   height: 18px;
 
-  background-color: ${({ theme }) => theme.colors.radix.contrast7};
+  background-color: ${gray.gray7};
 
   ${({ variant = 'text' }) => ({
     text: `

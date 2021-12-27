@@ -1,25 +1,20 @@
 import { gql } from '@/modules/core/api/gql';
 
 export const GetUserRepositoryListQuery = gql`
-  query GetUserRepositoryList($username: String!, $after: String) {
+  query GetUserRepositoryList($username: String!, $first: Int, $last: Int, $after: String, $before: String) {
     user(login: $username) {
-      repositories(last: 25, after: $after, isFork: false) {
+      repositories(first: $first, last: $last, after: $after, before: $before, isFork: false) {
         totalCount
 
         pageInfo {
           startCursor
-          hasNextPage
           endCursor
-        }
-
-        edges {
-          cursor
-          node {
-            name
-          }
+          hasNextPage
+          hasPreviousPage
         }
 
         nodes {
+          id
           name
           url
           nameWithOwner
